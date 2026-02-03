@@ -1,55 +1,81 @@
 # 🔍 Network Forensics Lab - VIP Recovery Malware Analysis
 
-## 🚨 Investigation Summary
-Analysis of VIP Recovery malware with FTP data exfiltration (PCAP from 2026-01-20).
+## 📌 Overview
+Real-world network forensics investigation of VIP Recovery information stealer with FTP data exfiltration. This project demonstrates SOC analyst skills using 2026 threat intelligence.
 
-### Key Findings:
-- C2 beaconing to malicious IP `193.122.6.168` (flagged by VirusTotal)
-- FTP credentials theft and data exfiltration
-- Clear attack chain: infection → credential theft → data theft → C2 persistence
+## 🚨 Incident Summary
+**Threat:** VIP Recovery Malware (Information Stealer)  
+**Date:** 2026-01-20  
+**Source:** Malware-Traffic-Analysis.net  
+**Severity:** HIGH  
 
-### Screenshots:
-![C2 Traffic](screenshots/wireshark-c2-traffic.png)
-![Protocol Hierarchy](screenshots/protocol-hierarchy.png)
+## 🔥 Critical Findings
+
+### Multi-Layer C2 Infrastructure
+| Server | IP Address | Detection Rate | Role |
+|--------|------------|----------------|------|
+| Primary C2 | 91.92.243.152 | 19/93 vendors | Main command channel |
+| Secondary C2 | 193.122.6.168 | 1/97 vendors | Backup channel |
+| Exfiltration Server | [FTP_SERVER_IP] | - | Data collection |
+
+### Data Exfiltration Evidence
+- **FTP Credentials Stolen:** `Admin`:`ZyiAEnXWZP1116437875` (plaintext)
+- **File Uploaded:** `Awakosero.zip` via FTP STOR command
+- **Beaconing Pattern:** HTTP requests every 300 seconds
+
+## 📸 Evidence Gallery
+![C2 Traffic](screenshots/wireshark-c2-traffic.png) 
 ![FTP Credentials](screenshots/ftp-credentials.png)
-![VirusTotal Detection](screenshots/virustotal-ip.png)
+![VT Detection](screenshots/virustotal-primary-c2.png)
+![Protocol Analysis](screenshots/protocol-hierarchy.png)
+
+## 🎯 Attack Chain
+1. **Initial Access:** Malicious email attachment
+2. **C2 Beaconing:** Regular HTTP requests to malicious IPs
+3. **Credential Theft:** FTP credentials harvested
+4. **Data Exfiltration:** Files uploaded via FTP
+5. **Persistence:** Scheduled tasks for continued access
+
+## 🛠️ Tools Used
+- **Analysis:** Wireshark, tshark, VirusTotal
+- **Scripting:** Python (pyshark), Bash
+- **Documentation:** MITRE ATT&CK, Incident Response frameworks
 
 ## 📊 Key Capabilities Demonstrated
-- **Beaconing Detection** - C2 communication pattern analysis
-- **Protocol Analysis** - HTTP/DNS/TLS anomaly identification  
-- **File Extraction** - Malware carving from network streams
-- **Timeline Reconstruction** - Attack chain visualization
-- **Threat Hunting** - Proactive IOC detection & analysis
-- **Automation** - Script development for repetitive tasks
+- **Beacon Detection:** Identified 5-minute C2 intervals
+- **Protocol Analysis:** HTTP/FTP anomaly detection
+- **IOC Extraction:** IPs, domains, file hashes
+- **Threat Intelligence:** VirusTotal integration
+- **MITRE ATT&CK Mapping:** T1071, T1048, T1552 techniques
+- **Professional Reporting:** Stakeholder-ready documentation
 
-  
 ## 📁 Repository Structure
 ```
 network-forensics-lab/
-├── README.md
-├── pcaps/
-│   └── VIP-Recovery-FTP-exfiltration.pcap  # PCAP yang sudah dianalisis
-├── analysis/
-│   ├── iocs.txt
-│   ├── notes.txt
-│   └── timeline.txt
-├── scripts/
-│   ├── beacon-detection.py
-│   └── pcap-analysis.sh
-├── screenshots/
-│   ├── wireshark-c2-traffic.png
-│   ├── protocol-hierarchy.png
-│   ├── top-conversations.png
-│   ├── virustotal-ip.png
-│   └── ftp-credentials.png
-├── reports/
-│   └── NETWORK-INVESTIGATION-2026-001.md
-└── docs/
-    └── methodology.md
+├── pcaps/ # Original PCAP files
+├── analysis/ # IOCs, notes, timelines
+├── scripts/ # Analysis automation
+├── screenshots/ # Visual evidence
+├── reports/ # Investigation reports
+└── docs/ # Methodology guides
 ```
 
 
+## 🚀 Quick Start
+```bash
+# Clone repo
+git clone https://github.com/[username]/network-forensics-lab.git
 
+# Basic analysis
+tshark -r pcaps/VIP-Recovery.pcap -c 100
+python scripts/beacon-detection.py pcaps/VIP-Recovery.pcap
+```
 
-Renaldi | SOC & Cloud Security Analyst
+📈 MITRE ATT&CK Mapping
+- T1071.001: Application Layer Protocol (HTTP C2)
+- T1048.003: Exfiltration Over Alternative Protocol (FTP)
+- T1552.001: Unsecured Credentials (Plaintext FTP)
+- T1204.002: User Execution (Malicious Attachment)
 
+👨‍💻 Author
+Renaldi - SOC Analyst
