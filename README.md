@@ -16,7 +16,7 @@ Real-world network forensics investigation of VIP Recovery information stealer w
 |--------|------------|----------------|------|
 | Primary C2 | 91.92.243.152 | 19/93 vendors | Main command channel |
 | Secondary C2 | 193.122.6.168 | 1/97 vendors | Backup channel |
-| Exfiltration Server | [FTP_SERVER_IP] | - | Data collection |
+| Exfiltration Server | - | - | Data collection |
 
 ### Data Exfiltration Evidence
 - **FTP Credentials Stolen:** `Admin`:`ZyiAEnXWZP1116437875` (plaintext)
@@ -24,9 +24,9 @@ Real-world network forensics investigation of VIP Recovery information stealer w
 - **Beaconing Pattern:** HTTP requests every 300 seconds
 
 ## 📸 Evidence Gallery
-![C2 Traffic](screenshots/wireshark-c2-traffic.png) 
-![FTP Credentials](screenshots/ftp-credentials.png)
+![C2 Traffic](screenshots/primary-c2-traffic.png) 
 ![VT Detection](screenshots/virustotal-primary-c2.png)
+![FTP Credentials](screenshots/top-conversations.png)
 ![Protocol Analysis](screenshots/protocol-hierarchy.png)
 
 ## 🎯 Attack Chain
