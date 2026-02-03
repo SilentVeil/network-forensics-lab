@@ -1,68 +1,20 @@
-# 🔍 Network Forensics Lab - Malware Traffic Analysis
+# 🔍 Network Forensics Lab - VIP Recovery Malware Analysis
 
-## 🎯 Overview
-A hands-on network forensic investigation lab analyzing malicious PCAP files to detect command-and-control (C2) beaconing, data exfiltration, and malware communication patterns. This project demonstrates real SOC threat hunting skills using industry-standard tools.
+## 🚨 Investigation Summary
+Analysis of VIP Recovery malware with FTP data exfiltration (PCAP from 2026-01-20).
 
-## 🚨 Investigation Scenario
-**Malware:** Emotet Trojan variant  
-**Attack Chain:** Malware download → C2 beaconing → Data exfiltration  
-**Source:** Real malware traffic from Malware-Traffic-Analysis.net (sanitized)
+### Key Findings:
+- C2 beaconing to malicious IP `193.122.6.168` (flagged by VirusTotal)
+- FTP credentials theft and data exfiltration
+- Clear attack chain: infection → credential theft → data theft → C2 persistence
 
-## 🛠️ Analysis Methodology
-1. **Initial Triage** - Protocol distribution, conversation mapping
-2. **Anomaly Detection** - Beaconing patterns, unusual ports
-3. **C2 Identification** - Regular intervals, encrypted channels  
-4. **Data Exfiltration** - Large transfers, unusual destinations
-5. **IOC Extraction** - IPs, domains, SSL certificates, file hashes
+### Screenshots:
+![C2 Traffic](screenshots/wireshark-c2-traffic.png)
+![Protocol Hierarchy](screenshots/protocol-hierarchy.png)
+![FTP Credentials](screenshots/ftp-credentials.png)
+![VirusTotal Detection](screenshots/virustotal-ip.png)
 
-## 📁 Repository Structure
-```
-network-forensics-lab/
-├── README.md
-├── pcaps/
-│   ├── malware-traffic.pcap
-│   └── clean-baseline.pcap
-├── analysis/
-│   ├── iocs.txt
-│   ├── timeline.txt
-│   ├── suricata-alerts.log
-│   └── extracted-files/
-├── scripts/
-│   ├── beacon-detection.py
-│   ├── pcap-analysis.sh
-│   └── ioc-extractor.py
-├── screenshots/
-│   ├── wireshark-overview.png
-│   ├── c2-beaconing.png
-│   └── tshark-output.png
-├── reports/
-│   └── NETWORK-INVESTIGATION-2024-001.md
-└── docs/
-    ├── methodology.md
-    └── tools-guide.md
-```
-
-## 🚀 Quick Start
-```bash
-# Clone repository
-git clone https://github.com/SilentVeil/network-forensics-lab.git
-cd network-forensics-lab
-
-# Analyze PCAP with tshark
-tshark -r pcaps/malware-traffic.pcap -Y "http"
-
-# Run beacon detection script
-python scripts/beacon-detection.py pcaps/malware-traffic.pcap
-```
-
-## 🔧 Tools Used
-- **Primary Analysis:** Wireshark (GUI), tshark (CLI)
-- **File Extraction:** NetworkMiner
-- **IOC Processing:** Python scripts with Scapy
-- **Logging & Reporting:** Markdown, MITRE ATT&CK Navigator
-- **Environment:** Ubuntu VM with security tools suite
-
-## 📊 Key Capabilities
+## 📊 Key Capabilities Demonstrated
 - **Beaconing Detection** - C2 communication pattern analysis
 - **Protocol Analysis** - HTTP/DNS/TLS anomaly identification  
 - **File Extraction** - Malware carving from network streams
@@ -70,7 +22,34 @@ python scripts/beacon-detection.py pcaps/malware-traffic.pcap
 - **Threat Hunting** - Proactive IOC detection & analysis
 - **Automation** - Script development for repetitive tasks
 
+  
+## 📁 Repository Structure
+```
+network-forensics-lab/
+├── README.md
+├── pcaps/
+│   └── VIP-Recovery-FTP-exfiltration.pcap  # PCAP yang sudah dianalisis
+├── analysis/
+│   ├── iocs.txt
+│   ├── notes.txt
+│   └── timeline.txt
+├── scripts/
+│   ├── beacon-detection.py
+│   └── pcap-analysis.sh
+├── screenshots/
+│   ├── wireshark-c2-traffic.png
+│   ├── protocol-hierarchy.png
+│   ├── top-conversations.png
+│   ├── virustotal-ip.png
+│   └── ftp-credentials.png
+├── reports/
+│   └── NETWORK-INVESTIGATION-2026-001.md
+└── docs/
+    └── methodology.md
+```
 
-👨‍💻 Author
+
+
+
 Renaldi | SOC & Cloud Security Analyst
 
