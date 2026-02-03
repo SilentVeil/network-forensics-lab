@@ -1,0 +1,22 @@
+=== PRIMARY C2 INFRASTRUCTURE ===
+IP: 91.92.243.152
+- VirusTotal Detection: 19/93 vendors flagged (HIGH CONFIDENCE)
+- Protocol: [HTTP/HTTPS/DNS? - cek di Wireshark]
+- Observed: [Deskripsikan traffic pattern]
+
+=== SECONDARY C2 ===
+IP: 193.122.6.168
+- VirusTotal Detection: 1/97 vendors flagged
+- Protocol: HTTP beaconing
+- Purpose: Likely backup/secondary C2
+
+=== FTP EXFILTRATION ===
+FTP Server: [IP]
+Credentials: [username]:[password]
+File Uploaded: [filename]
+
+=== ATTACKER INFRASTRUCTURE SUMMARY ===
+Malware menggunakan MULTIPLE C2 servers untuk redundancy:
+1. 91.92.243.152 (Primary C2 - highly detected)
+2. 193.122.6.168 (Secondary C2 - low detection)
+3. [FTP Server IP] (Data exfiltration)
